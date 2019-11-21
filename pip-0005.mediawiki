@@ -23,11 +23,6 @@ In order to limit liquidity & volatility attacks on low liquidity pAssets on Peg
 Address pAssets that currently don’t meet this criteria by implementing a one way conversion of pFCT (the only pegged asset with a reference token currently under $100,000,000 in market cap on PegNet and less than $5,000,000 in daily trading volume) until such time as the FCT reference asset meets the proposed criteria above. So FCT would convert to pFCT, and then pFCT would convert into any pAsset, but pAssets would not be permitted to convert back into pFCT. 
 
 
-I'd agreed with that. The immediate goal is to defuse the attacker and preserve the stability of the PegNet. Lot to work on beyond that.
-Title: “PIP1 A Proposal For pAsset Listing & Conversion Requirement”: 
-
-
-
 ==Motivation==
 
 Protect the Pegnet network from attacks on low liquid assets. These assets are susceptible to attacks on the open market, which Pegnet uses as it's reference value. Enabling one way conversions on these assets is a fix to protect the Pegnet until another protection mechanism can be determined. 
