@@ -7,7 +7,7 @@
           Steven Masley <steven@factom.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0005
-  Status: Proposed
+  Status: Active
   Type: Standards Track
   Created: 2016-02-03
   License: BSD-2-Clause
