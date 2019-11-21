@@ -20,6 +20,14 @@ It should be known without consensus from the miners and users of the protocol, 
 | David Johnson, Steven Masley
 | Standard
 | Active
+|-
+| [[pip-0006.mediawiki|6]]
+| Consensus (hard fork)
+| ECDSA Keys (RCD-e)
+| Steven Masley
+| Standard
+| Draft
+
 |}
 
 
