@@ -1,1 +1,0 @@
-TODO: Clone bips-0002 into this with minor changes

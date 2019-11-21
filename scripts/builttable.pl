@@ -2,11 +2,11 @@
 use strict;
 use warnings;
 
-my $topbip = 9999;
+my $toppip = 9999;
 my $include_layer = 1;
 
 my %RequiredFields = (
-    BIP => undef,
+    PIP => undef,
     Title => undef,
     Author => undef,
     'Comments-URI' => undef,
@@ -91,9 +91,9 @@ my %TolerateTitleTooLong = map { $_ => undef } qw(39 44 45 47 49 60 67 68 69 73 
 
 my %emails;
 
-my $bipnum = 0;
-while (++$bipnum <= $topbip) {
-    my $fn = sprintf "bip-%04d.mediawiki", $bipnum;
+my $pipnum = 0;
+while (++$pipnum <= $toppip) {
+    my $fn = sprintf "pip-%04d.mediawiki", $pipnum;
     -e $fn || next;
     open my $F, "<$fn";
     while (<$F> !~ m[^(?:\xef\xbb\xbf)?<pre>$]) {
@@ -118,16 +118,16 @@ while (++$bipnum <= $topbip) {
             die "Bad line in $fn preamble";
         }
         die "Extra spaces in $fn" if $val =~ /^\s/;
-        if ($field eq 'BIP') {
-            die "$fn claims to be BIP $val" if $val ne $bipnum;
+        if ($field eq 'PIP') {
+            die "$fn claims to be PIP $val" if $val ne $pipnum;
         } elsif ($field eq 'Title') {
             $title = $val;
             my $title_len = length($title);
-            die "$fn has too-long TItle ($title_len > 44 char max)" if $title_len > 44 and not exists $TolerateTitleTooLong{$bipnum};
+            die "$fn has too-long TItle ($title_len > 44 char max)" if $title_len > 44 and not exists $TolerateTitleTooLong{$pipnum};
         } elsif ($field eq 'Author') {
             $val =~ m/^(\S[^<@>]*\S) \<([^@>]*\@[\w.]+\.\w+)\>$/ or die "Malformed Author line in $fn";
             my ($authorname, $authoremail) = ($1, $2);
-            $authoremail =~ s/(?<=\D)$bipnum(?=\D)/<BIPNUM>/g;
+            $authoremail =~ s/(?<=\D)$pipnum(?=\D)/<PIPNUM>/g;
             $emails{$authorname}->{$authoremail} = undef;
             if (defined $author) {
                 $author .= ", $authorname";
@@ -135,7 +135,7 @@ while (++$bipnum <= $topbip) {
                 $author = $authorname;
             }
         } elsif ($field eq 'Status') {
-            if ($bipnum == 38) {  # HACK
+            if ($pipnum == 38) {  # HACK
                 $val =~ s/\s+\(.*\)$//;
             }
             die "Invalid status in $fn" unless exists $ValidStatus{$val};
@@ -147,17 +147,17 @@ while (++$bipnum <= $topbip) {
             } else {
                 $type = $val;
             }
-        } elsif ($field eq 'Layer') {  # BIP 123
+        } elsif ($field eq 'Layer') {  # PIP 123
             die "Invalid layer $val in $fn" unless exists $ValidLayer{$val};
             $layer = $val;
         } elsif ($field =~ /^License(?:\-Code)?$/) {
             die "Undefined license $val in $fn" unless exists $DefinedLicenses{$val};
             if (not $found{$field}) {
-                die "Unacceptable license $val in $fn" unless exists $AcceptableLicenses{$val} or ($val eq 'PD' and exists $GrandfatheredPD{$bipnum});
+                die "Unacceptable license $val in $fn" unless exists $AcceptableLicenses{$val} or ($val eq 'PD' and exists $GrandfatheredPD{$pipnum});
             }
         } elsif ($field eq 'Comments-URI') {
             if (not $found{'Comments-URI'}) {
-                my $first_comments_uri = sprintf('https://github.com/pegnet/pips/wiki/Comments:BIP-%04d', $bipnum);
+                my $first_comments_uri = sprintf('https://github.com/pegnet/pips/wiki/Comments:PIP-%04d', $pipnum);
                 die "First Comments-URI must be exactly \"$first_comments_uri\" in $fn" unless $val eq $first_comments_uri;
             }
         } elsif (exists $DateField{$field}) {
@@ -170,7 +170,7 @@ while (++$bipnum <= $topbip) {
         ++$found{$field};
     }
     if (not $found{License}) {
-        die "Missing License in $fn" unless exists $TolerateMissingLicense{$bipnum};
+        die "Missing License in $fn" unless exists $TolerateMissingLicense{$pipnum};
     }
     for my $field (keys %RequiredFields) {
         die "Missing $field in $fn" unless $found{$field};
@@ -180,7 +180,7 @@ while (++$bipnum <= $topbip) {
         print " style=\"" . $ValidStatus{$status} . "\"";
     }
     print "\n";
-    print "| [[${fn}|${bipnum}]]\n";
+    print "| [[${fn}|${pipnum}]]\n";
     if ($include_layer) {
         if (defined $layer) {
             print "| ${layer}\n";

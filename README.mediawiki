@@ -5,3 +5,11 @@ The PIP process is still loosly defined, so although the process will aid develo
 It should be known without consensus from the miners and users of the protocol, a PIP cannot be enforced. In the end, it is the users of the protocol that must adopt and accept the final implementation.
 
 Thanks to (bips)[https://github.com/bitcoin/bips] for the improvement proposal process.
+
+|- style="background-color: #ffffcf"
+| [[pip-0005.mediawiki|5]]
+| Consensus (hard fork)
+| pAsset Listing & Conversion Requirement
+| David Johnson, Steven Masley
+| Standard
+| Proposed
