@@ -1,0 +1,57 @@
+
+  BIP: <BIP number, or "?" before being assigned>
+* Layer: <Consensus (soft fork) | Consensus (hard fork) | Peer Services | API/RPC | Applications>
+  Title: <BIP title; maximum 44 characters>
+  Author: <list of authors' real names and email addrs>
+* Discussions-To: <email address>
+* Comments-Summary: <summary tone>
+  Comments-URI: <links to wiki page for comments>
+  Status: <Draft | Active | Proposed | Deferred | Rejected |
+           Withdrawn | Final | Replaced | Obsolete>
+  Type: <Standards Track | Informational | Process>
+  Created: <date created on, in ISO 8601 (yyyy-mm-dd) format>
+  License: <abbreviation for approved license(s)>
+* License-Code: <abbreviation for code under different approved license(s)>
+* Post-History: <dates of postings to bitcoin mailing list, or link to thread in mailing list archive>
+* Requires: <BIP number(s)>
+* Replaces: <BIP number>
+* Superseded-By: <BIP number>
+
+<pre>
+  BIP: 5
+  Title: pAsset Listing & Conversion Requirement
+  Layer: Consensus (hard fork) 
+  Author: David Johnson & Steven Masley
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:BIP-0005
+  Status: Proposed
+  Type: Standards Track
+  Created: 2016-02-03
+  License: 
+</pre>
+
+==Abstract==
+
+In order to limit liquidity & volatility attacks on low liquidity pAssets on PegNet, it is proposed that any new candidate pAsset’s reference asset, must have a market cap greater than $100,000,000 USD and daily trading volumes of greater than $5,000,000 for longer than 4,000 blocks (presuming 10 minute blocks, that’s about 27.7 days).
+
+==Specification==
+
+Address pAssets that currently don’t meet this criteria by implementing a one way conversion of pFCT (the only pegged asset with a reference token currently under $100,000,000 in market cap on PegNet and less than $5,000,000 in daily trading volume) until such time as the FCT reference asset meets the proposed criteria above. So FCT would convert to pFCT, and then pFCT would convert into any pAsset, but pAssets would not be permitted to convert back into pFCT. 
+
+
+I'd agreed with that. The immediate goal is to defuse the attacker and preserve the stability of the PegNet. Lot to work on beyond that.
+Title: “PIP1 A Proposal For pAsset Listing & Conversion Requirement”: 
+
+
+
+==Motivation==
+
+Protect the Pegnet network from attacks on low liquid assets. These assets are susceptible to attacks on the open market, which Pegnet uses as it's reference value. Enabling one way conversions on these assets is a fix to protect the Pegnet until another protection mechanism can be determined. 
+
+==Rationale==
+
+The proposed mechanism of one way conversions has the least impact on the other Pegnet tokens. This pip was an alternative to the idea of a spread mechanism in Pegnet that would add a cost to conversions. This cost would be determined by the asset's volitility, and it would be presented as a spread between a buy and sell price. The calculations behind how to determine the spread is detailed (here)[https://github.com/pegnet/docs/blob/master/pdfdocs/calculatingconversions.pdf]. In summary, the buy price would greater than or equal to the sell price, meaning some assets would yield a loss if converting back and forth. The spread mechanism addresses this issue, but it also imposes a costs to conversions on assets where this is not necessary. Until the spread mechanism is further developed and researched, or another alternative presents itself, this solution should be taken.
+
+==Reference implementation== 
+
+Pegnetd is the reference implementation.
