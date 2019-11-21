@@ -23,4 +23,4 @@ It should be known without consensus from the miners and users of the protocol, 
 |}
 
 
-Thanks to (bips)[https://github.com/bitcoin/bips] for the improvement proposal process.
+Thanks to [https://github.com/bitcoin/bips bips] for the improvement proposal process.
