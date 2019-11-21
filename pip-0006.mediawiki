@@ -18,7 +18,7 @@ To support the Ethereum gateway for pegnet tokens, pegnet will have to support e
 
 ==Specification==
 
-Factom addresses use an rcd structure detailed [https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#redeem-condition-datastructure-rcd here]. RCD-1 is the only current supported type. This PIP details a new RCD type, RCD-e. RCD-e will use the ecdsa signature scheme when validating transaction signatures. The `e` is for `ethereum` and is the first byte of the rcd.
+Factom addresses use an rcd structure detailed [https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#redeem-condition-datastructure-rcd here]. RCD-1 is the only current supported type. This PIP details a new RCD type, RCD-e. RCD-e will use the ecdsa signature scheme when validating transaction signatures. The  {{Inline-code | 1=e}} is for  {{Inline-code | 1=ethereum}} and is the first byte of the rcd.
 
 ===RCD Type e===
 
@@ -32,7 +32,7 @@ The private key is the 32 byte ecdsa private key. When represented as text, the 
 Signatures are 65 bytes in length. The first 64 bytes is the signature itself, with the 65th byte being the recovery byte. The recovery byte allows the operation `pubkey = recover(digest, signature)`.
 
 Example Vector:
-```
+<pre>
 Private Key: 0xbde0723b3236d7b7613d11c6c93c57ad89fd7f7c586aaa18f7a1b392aa2c39fd
  Public Key: 0x25892ecbaf10c71d52f260c0b43a8e6b2384324b02c0d4b576d74452b81c359068e584b8831287a1a21b21fd2ac0c0e326cfcdaff27df14261a78bee0e0177d4
   FAAddress: FA2M5uK3aPrJ8RfHdbTUL1ySxp22s3TwQ3Js6n7jss7QErw3S6ae
@@ -41,7 +41,7 @@ Private Key: 0xbde0723b3236d7b7613d11c6c93c57ad89fd7f7c586aaa18f7a1b392aa2c39fd
 
      Digest: 0000000000000000000000000000000000000000000000000000000000000000
   Signature: 4bc4cee5b07114dcc0dd4a7654d42a1abc51f8d5c417fde8413686126a8cfb0633fac598664c46ec88be878f8fe9c3245e8385e00be107f021a937ab73d09d7a00
-```
+<pre>
 
 It should be noticed that the resulting Factom address is encoded in the same method as the RCD-1; `0x5fb1 + sha256d(rcd) + checksum`. This imposes a potential risk to users, ad the RCD-e is not yet implemented into the Factom Protocol, and therefore unable to transfer FCT.
 
