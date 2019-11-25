@@ -1,7 +1,7 @@
 
 <pre>
   PIP: 6
-  Title: ECDSA Keys (RCD-e)
+  Title: Ethereum (ECDSA) Keys (RCD-e)
   Layer: Consensus (hard fork)
   Author: Steven Masley <steven@factom.com>
   Comments-Summary: No comments yet.

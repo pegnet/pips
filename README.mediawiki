@@ -13,6 +13,7 @@ It should be known without consensus from the miners and users of the protocol, 
 !Owner
 !Type
 !Status
+
 |- style="background-color: #cfffcf"
 | [[pip-0005.mediawiki|5]]
 | Consensus (hard fork)
@@ -23,7 +24,7 @@ It should be known without consensus from the miners and users of the protocol, 
 |-
 | [[pip-0006.mediawiki|6]]
 | Consensus (hard fork)
-| ECDSA Keys (RCD-e)
+| Ethereum (ECDSA) Keys (RCD-e)
 | Steven Masley
 | Standard
 | Draft
