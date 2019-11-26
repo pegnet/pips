@@ -23,16 +23,16 @@ There is nothing stopping the users from requesting more than 5,000 PEG in a sin
 
 ===Implementation===
 
-The exact implementation details is contained in the supporting pdf found [pip-007/ConversionPayout.pdf here]. The source code is located [https://github.com/pegnet/pegnet/blob/pip-007/modules/conversions/conversionlimit.go#L44 here]
+The exact implementation details is contained in the supporting pdf found [/pip-007/ConversionPayout.pdf here]. The source code is located [https://github.com/pegnet/pegnet/blob/pip-007/modules/conversions/conversionlimit.go#L44 here]
 
 
-
+TODO: Talk about the bank
 
 ==Motivation==
 
+TODO: David's Medium
 
 ==Rationale==
 
+TODO: David's Medium
 
-
-==Backwards compatibility==
