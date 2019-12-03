@@ -23,16 +23,17 @@ There is nothing stopping the users from requesting more than 5,000 PEG in a sin
 
 ===Implementation===
 
-The exact implementation details is contained in the supporting pdf found [pip-007/ConversionPayout.pdf here]. The source code is located [https://github.com/pegnet/pegnet/blob/pip-007/modules/conversions/conversionlimit.go#L44 here]
+The exact implementation details is contained in the supporting pdf found [pip-007/ConversionPayout.pdf here]. The source code is located [https://github.com/pegnet/pegnetd/pull/90 here] for pegnetd.
 
+In short, if 2 users both ask for 5K PEG in a given block, because of the 5K limit, each user will receive their proportion of their ask against the total ask. Yielding each user 2,500 PEG.
 
-
+If user A requests 9K PEG, and user B requests 1K. User A yields 4,500 PEG and user B yields 500. This means there is an incentive to put up more funds in a conversion request to secure a larger yield of the block. 
 
 ==Motivation==
 
 
+Please consult the post [https://medium.com/pegnet/predictable-supply-of-peg-3fd39124f36 here]. This medium post is better formatted for legibility.
+
 ==Rationale==
 
-
-
-==Backwards compatibility==
+Please consult the post [https://medium.com/pegnet/predictable-supply-of-peg-3fd39124f36 here]. This medium post is better formatted for legibility.
