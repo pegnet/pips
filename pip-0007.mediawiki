@@ -1,0 +1,39 @@
+<pre>
+  PIP: 7
+  Title: Conversion Supply Schedule
+  Layer: Consensus (hard fork)
+  Author: Steven Masley <steven@factom.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0007
+  Status: Draft
+  Type: Standards Track
+  Created: 2019-11-25
+  License: BSD-2-Clause
+</pre>
+
+==Abstract==
+
+Implement a supply curve cap such that the PEG supply can be charted with an equation. The current system has an uncapped PEG supply from the allowance of unlimited conversions into and out of PEG. This pip imposes a conversion supply schedule and creates predictability and scarcity for the PEG token.
+
+==Specification==
+
+The PEG conversion supply schedule will match that of the miners. This means only 5,000 PEG per block will be allowed to be converted into, the same amount of PEG the miners mine each block. This is to keep the converions on par with the miners, and ensure the value of mining remains.
+
+There is nothing stopping the users from requesting more than 5,000 PEG in a single block, so a fair proportional process will be used to determine the amount of PEG each conversion request receives. The proportion of the 5,000 PEG the request receives, will be in proportion to the amount of PEG requested against the total for the block.
+
+===Implementation===
+
+The exact implementation details is contained in the supporting pdf found [https://github.com/pegnet/pips/blob/master/pip-0007/ConversionPayout.pdf here]. The source code is located [https://github.com/pegnet/pegnetd/pull/90 here] for pegnetd.
+
+In short, if 2 users both ask for 5K PEG in a given block, because of the 5K limit, each user will receive their proportion of their ask against the total ask. Yielding each user 2,500 PEG.
+
+If user A requests 9K PEG, and user B requests 1K. User A yields 4,500 PEG and user B yields 500. This means there is an incentive to put up more funds in a conversion request to secure a larger yield of the block. 
+
+==Motivation==
+
+
+Please consult the post [https://medium.com/pegnet/predictable-supply-of-peg-3fd39124f36 here]. This medium post is better formatted for legibility.
+
+==Rationale==
+
+Please consult the post [https://medium.com/pegnet/predictable-supply-of-peg-3fd39124f36 here]. This medium post is better formatted for legibility.
