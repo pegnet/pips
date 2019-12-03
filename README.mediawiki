@@ -13,6 +13,8 @@ It should be known without consensus from the miners and users of the protocol, 
 !Owner
 !Type
 !Status
+
+
 |- style="background-color: #cfffcf"
 | [[pip-0005.mediawiki|5]]
 | Consensus (hard fork)
@@ -27,6 +29,14 @@ It should be known without consensus from the miners and users of the protocol, 
 | Steven Masley
 | Standard
 | Draft
+|-
+| [[pip-0007.mediawiki|7]]
+| Consensus (hard fork)
+| Conversion Supply Schedule
+| Steven Masley
+| Standard
+| Draft
+
 
 |}
 
