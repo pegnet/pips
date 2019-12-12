@@ -38,7 +38,7 @@ Factom addresses use an rcd structure detailed [https://github.com/FactomProject
 
 The private key is the 32 byte ecdsa private key. When represented as text, the Ethereum hex style <code>0x00..</code> should be used. Factom private keys are encoded in base58 with an <code>Fs</code> prefix. We do not want users to confuse the two types.
 
-Signatures are 65 bytes in length. The first 64 bytes is the signature itself, with the 65th byte being the recovery byte. The recovery byte allows the operation <code>pubkey = recover(digest, signature)</code>.
+Signatures are 65 bytes in length. The first 64 bytes is the signature itself, with the 65th byte being the recovery byte. The recovery byte allows the operation <code>pubkey = recover(digest, signature)</code>. All signatures are <code>Sign(Sha256(Sha256(msg)))</code>. This means only sign hash digests, and for rcd-e, all hash digests are a sha256d of the original msg.
 
 Example Vector:
 
