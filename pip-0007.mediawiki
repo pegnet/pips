@@ -5,7 +5,7 @@
   Author: Steven Masley <steven@factom.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0007
-  Status: Draft
+  Status: Active
   Type: Standards Track
   Created: 2019-11-25
   License: BSD-2-Clause

@@ -34,7 +34,7 @@ It should be known without consensus from the miners and users of the protocol, 
 | Conversion Supply Schedule
 | Steven Masley
 | Standard
-| Draft
+| Active
 
 
 |}
