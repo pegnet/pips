@@ -41,7 +41,7 @@ It should be known without consensus from the miners and users of the protocol, 
 | Adjust Conversion Supply Schedule
 | David Johnston, Paul Snow, Steven Masley
 | Standard
-| Active
+| Draft
 
 |}
 
