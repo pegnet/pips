@@ -1,0 +1,43 @@
+<pre>
+  PIP: 8
+  Title: Adjust Conversion Supply Schedule
+  Layer: Consensus (hard fork)
+  Author: David Johnston <david@yeomans.capital>
+          Paul Snow <paul@factom.com>
+          Steven Masley <steven@factom.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0008
+  Status: Draft
+  Type: Standards Track
+  Created: 2020-01-16
+  License: BSD-2-Clause
+</pre>
+
+==Abstract==
+
+With the limit set to 5000 PEG converted per block, Arbitrage is limited and cannot ensure that pegged assets maintain their
+value in the market.  This proposal allows the conversion limit to be raised to ensure enough pegged assets can be converted
+to PEG to allow arbitrage.
+
+===Implementation===
+
+The OPR records will be updated to include the market price of pAssets that have sufficient volume.  To begin with this will
+be pUSD
+
+If all the reported pAssets are below their reference value by at least 1 percent, the PEG conversion limit will be raised 
+500 PEG.  The limit continue to be raised until the pegged assets are at or above 1 percent their reference value. There is a limit of 288 blocks of growth, (500 * 288) + 5000.
+
+If all the reported pAssets are at or above 1 percent of their reference value, then the conversion limit will be reduced
+500 peg per block until the PEG limit of 5000 PEG per block is restored.
+==Motivation==
+
+Ultimately the value of PEG depends on the pegged assets ability to track their reference values.  If all assets are
+below their reference values, then aribtrage requires some asset at market value.  PEG floats on the market, so it will be 
+at market value.  
+
+However, if the pegged assets maintain the the price of their reference values, the limit will ensure that the supply does
+does not overrun the payments to miners.  Furthermore, as pegged assets are assured of holding their reference value, PEG 
+can be liquidated through pegged assets and thus will hold their value.
+
+
+
