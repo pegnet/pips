@@ -35,13 +35,21 @@ It should be known without consensus from the miners and users of the protocol, 
 | Steven Masley
 | Standard
 | Active
-|- style="background-color: #cfffcf"
+|-
 | [[pip-0008.mediawiki|8]]
 | Consensus (hard fork)
 | Adjust Conversion Supply Schedule
 | David Johnston, Paul Snow, Steven Masley
 | Standard
 | Draft
+|-
+| [[pip-0009.mediawiki|9]]
+| Consensus (hard fork)
+| Additional Currencies Update 02
+| David Johnston, Steven Masley
+| Standard
+| Draft
+
 
 |}
 
