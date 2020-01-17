@@ -1,13 +1,15 @@
 <pre>
   PIP: 8
-  Title: Adjust Conversion Supply Schedule to allow arbitrage
+  Title: Adjust Conversion Supply Schedule
   Layer: Consensus (hard fork)
-  Author: Steven Masley <steven@factom.com> Paul Snow <paul@factom.com> David Johnston <david@yeomans.capital>
+  Author: David Johnston <david@yeomans.capital>
+          Paul Snow <paul@factom.com>
+          Steven Masley <steven@factom.com>
   Comments-Summary: No comments yet.
   Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0008
-  Status: Active
+  Status: Draft
   Type: Standards Track
-  Created: 2020-1-16
+  Created: 2020-01-16
   License: BSD-2-Clause
 </pre>
 

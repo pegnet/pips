@@ -28,14 +28,20 @@ It should be known without consensus from the miners and users of the protocol, 
 | Steven Masley
 | Standard
 | Draft
-|-
+|- style="background-color: #cfffcf"
 | [[pip-0007.mediawiki|7]]
 | Consensus (hard fork)
 | Conversion Supply Schedule
 | Steven Masley
 | Standard
 | Active
-
+|- style="background-color: #cfffcf"
+| [[pip-0008.mediawiki|8]]
+| Consensus (hard fork)
+| Adjust Conversion Supply Schedule
+| David Johnston, Paul Snow, Steven Masley
+| Standard
+| Active
 
 |}
 
