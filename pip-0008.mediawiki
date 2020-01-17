@@ -23,7 +23,7 @@ The OPR records will be updated to include the market price of pAssets that have
 be pUSD
 
 If all the reported pAssets are below their reference value by at least 1 percent, the PEG conversion limit will be raised 
-500 PEG.  The limit continue to be raised until the pegged assets are at or above 1 percent their reference value.
+500 PEG.  The limit continue to be raised until the pegged assets are at or above 1 percent their reference value. There is a limit of 288 blocks of growth, (500 * 288) + 5000.
 
 If all the reported pAssets are at or above 1 percent of their reference value, then the conversion limit will be reduced
 500 peg per block until the PEG limit of 5000 PEG per block is restored.
