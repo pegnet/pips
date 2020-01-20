@@ -14,11 +14,11 @@
 
 ==Abstract==
 
-To support the Ethereum gateway for pegnet tokens, pegnet will have to support ethereum keys. By supporting the signature scheme (ecdsa) used by Ethereum, all pegnet tokens going through the gateway will never change ownership. The same key used to redeem the pegnet tokens is the same that uses the erc20 tokens.
+To support the Ethereum gateway for PegNet tokens, PegNet will have to support Ethereum keys. By supporting the signature scheme (ECDSA) used by Ethereum, all PegNet tokens going through the gateway will never change ownership. The same key used to redeem the PegNet tokens is the same that uses the ERC20 tokens.
 
 ==Specification==
 
-Factom addresses use an rcd structure detailed [https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#redeem-condition-datastructure-rcd here]. RCD-1 is the only current supported type, and uses the ed25519 signature scheme. This PIP details a new RCD type, RCD-e. RCD-e will use the ecdsa signature scheme when validating transaction signatures. The  <code>e</code> is for <code>ethereum</code> and is the first byte of the rcd.
+Factom addresses use an RCD structure detailed [https://github.com/FactomProject/FactomDocs/blob/master/factomDataStructureDetails.md#redeem-condition-datastructure-rcd here]. RCD-1 is the only currently supported type, and uses the ed25519 signature scheme. This PIP details a new RCD type, RCD-e. RCD-e will use the ECDSA signature scheme when validating transaction signatures. The <code>e</code> is for <code>Ethereum</code> and <code>0x0e</code> is the first byte of the RCD.
 
 ===RCD Type e===
 
@@ -29,16 +29,16 @@ Factom addresses use an rcd structure detailed [https://github.com/FactomProject
 |-
 | varInt_F
 | Type
-| The RCD type.  This specifies how the datastructure should be interpreted.  Type 14 (<code>0x0e</code>) indicates the Ethereum linked rcd.
+| The RCD type.  This specifies how the data structure should be interpreted.  Type 14 (<code>0x0e</code>) indicates the Ethereum-linked RCD.
 |-
 | 64 bytes
 | Pubkey 0
-| The 64 byte ecdsa uncompressed public key. If generating an uncompressed key, and the length is 65, remove the <code>0x04</code> prefix indicating an uncompressed key.
+| The 64-byte ECDSA uncompressed public key. If generating an uncompressed key and the length is 65, remove the <code>0x04</code> prefix indicating an uncompressed key.
 |}
 
-The private key is the 32 byte ecdsa private key. When represented as text, the Ethereum hex style <code>0x00..</code> should be used. Factom private keys are encoded in base58 with an <code>Fs</code> prefix. We do not want users to confuse the two types.
+The private key is the 32-byte ECDSA private key. When presented as text, the Ethereum hex-style <code>0x00..</code> should be used. Factom private keys are encoded in base58 with an <code>Fs</code> prefix. We do not want users to confuse the two types.
 
-Signatures are 65 bytes in length. The first 64 bytes is the signature itself, with the 65th byte being the recovery byte. The recovery byte allows the operation <code>pubkey = recover(digest, signature)</code>. All signatures are <code>Sign(Sha256(Sha256(msg)))</code>. This means only sign hash digests, and for rcd-e, all hash digests are a sha256d of the original msg.
+Signatures are 65 bytes in length. The first 64 bytes is the signature itself, with the 65th byte being the recovery byte. The recovery byte allows the operation <code>pubkey = recover(digest, signature)</code>. All signatures are <code>Sign(Sha256(Sha256(msg)))</code>. This means only sign hash digests, and for RCD-e, all hash digests are a sha256d of the original msg.
 
 Example Vector:
 
@@ -53,24 +53,24 @@ Example Vector:
   Signature: 4bc4cee5b07114dcc0dd4a7654d42a1abc51f8d5c417fde8413686126a8cfb0633fac598664c46ec88be878f8fe9c3245e8385e00be107f021a937ab73d09d7a00
 </pre>
 
-It should be noticed that the resulting Factom address is encoded in the same method as the RCD-1; <code>0x5fb1 + sha256d(rcd) + checksum</code>. This imposes a potential risk to users, ad the RCD-e is not yet implemented into the Factom Protocol, and therefore unable to transfer FCT.
+It should be noticed that the resulting Factom address is encoded in the same method as the RCD-1; <code>0x5fb1 + sha256d(rcd) + checksum</code>. This imposes a potential risk to users, as the RCD-e is not yet implemented into the Factom Protocol and, therefore, unable to transfer FCT.
 
-To protect users from making the mistake of transfering FCT to this new address type, a clientside protection standard should be used.
+To protect users from making the mistake of transferring FCT to this new address type, a client-side protection standard should be used.
 
-===ClientSide Protection===
+===Client-side Protection===
 
-In order to ensure funds are not accidently send to unredeemable locations, we can impose a different address encoding scheme for the rcd-e addresses. It should be known that although we are changing the encoding from the wallet, all explorers and external tools will still show the <code>FA...</code> address. All wallets should support these extra encoding standards. Any legacy wallets will intentionally fail to work with this new standard. If funds need to be sent from a legacy wallet, they will need to send to the alternative <code>FA...</code> encoding.
+In order to ensure funds are not accidentally sent to unredeemable locations, we can impose a different address encoding scheme for the RCD-e addresses. It should be known that although we are changing the encoding from the wallet, all explorers and external tools will still show the <code>FA...</code> address. All wallets should support these extra encoding standards. Any legacy wallets will intentionally fail to work with this new standard. If funds need to be sent from a legacy wallet, they will need to send to the alternative <code>FA...</code> encoding.
 
-All user rcd-e addresses should be encoded as follows: [https://play.golang.org/p/95IShJNH9-V ExampleCode]
+All user RCD-e addresses should be encoded as follows: [https://play.golang.org/p/95IShJNH9-V Example Code]
 
 # <code>RCDHash = Sha256(Sha256(rcd))</code> where <code>rcd</code> bytes are defined in the table above (<code>0x0e + pubkey</code>)
 # Concatenate the 0x62f4 prefix (<code>Fe</code>) and the rcdhash, <code>0x62f40000000000000000000000000000000000000000000000000000000000000000</code>
 # Take the SHA256d of the above data, and append the first 4 bytes to the end. 
-# Base58 encode the binary. 
+# Base58 encode the result. 
 
 An additional prefix can also be used by Ethereum Gateways, <code>0x6028</code> (<code>FE</code>). This will be explained below.
 
-When a user inputs the <code>Fe</code> or <code>FE</code> encoding, the underlying wallet should understand the encoding and apply the clientside protections associated with each. The first is that legacy wallets only support FCT transactions, and such will reject any new encoding as invalid. This will protect legacy users from sending FCT to this new address type. The rules of which addresses can send to which is provided below. The main thing to note about <code>Fe</code> vs <code>FE</code> is that an <code>FA</code> address cannot send funds to an <code>FE</code> address. This is because an <code>FE</code> address indicates a gateway, and an <code>FA</code> address does not have a linked Ethereum address to receive the funds on the other side of the gateway. A user who sends pegged tokens to the <code>FE</code> address '''must''' be able to redeem their tokens on the other side of the gateway.
+When a user inputs the <code>Fe</code> or <code>FE</code> encoding, the underlying wallet should understand the encoding and apply the client-side protections associated with each. The first is that legacy wallets only support FCT transactions, and as such will reject any new encoding as invalid. This will protect legacy users from sending FCT to this new address type. The rules of which addresses can send to which is provided below. The main thing to note about <code>Fe</code> vs <code>FE</code> is that an <code>FA</code> address cannot send funds to an <code>FE</code> address. This is because an <code>FE</code> address indicates a gateway, and an <code>FA</code> address does not have a linked Ethereum address to receive the funds on the other side of the gateway. A user who sends pegged tokens to the <code>FE</code> address '''must''' be able to redeem their tokens on the other side of the gateway.
 
 {| class="wikitable"
 ! Input
@@ -104,11 +104,11 @@ When a user inputs the <code>Fe</code> or <code>FE</code> encoding, the underlyi
 
 ===Linked Ethereum Address===
 
-Since the rcd-e uses the ecdsa signature scheme, all rcd-e addresses should also display their linked etheruem address. The etheruem address derivation can be found in the 'Ethereum Addresses' section in this [https://www.oreilly.com/library/view/mastering-ethereum/9781491971932/ch04.html chapter]. If a wallet supports this rcd-e type, the wallet should also show the user their linked Etheruem address. It should also indicate to the user their FA address if the user is going to confirm their address on a legacy explorer, or look at a transaction that has only FA addresses.
+Since the RCD-e uses the ECDSA signature scheme, all RCD-e addresses should also display their linked Ethereum address. The Ethereum address derivation can be found in the 'Ethereum Addresses' section in this [https://www.oreilly.com/library/view/mastering-ethereum/9781491971932/ch04.html chapter]. If a wallet supports this RCD-e type, the wallet should also show the user their linked Etheruem address. It should also indicate to the user their FA address if the user is going to confirm their address on a legacy explorer or look at a transaction that has only FA addresses.
 
 ===Bip44 Derivation===
 
-All Ethereum Linked addresses (<code>Fe</code>) should be derived using the Etheruem cointype path found in this [https://github.com/satoshilabs/slips/blob/master/slip-0044.md list]. The address generated by the wallet should have the linked Ethereum address that an ether wallet would generate. This means a user moving their seed from a Pegnet to Ether wallet after a Gateway transaction would see their coins.
+All Ethereum Linked addresses (<code>Fe</code>) should be derived using the Ethereum coin type path found in this [https://github.com/satoshilabs/slips/blob/master/slip-0044.md list]. The address generated by the wallet should have the linked Ethereum address that an Ether wallet would generate. This means a user moving their seed from a PegNet to Ether wallet after a gateway transaction would see their coins.
 
 
 ==Motivation==
@@ -120,6 +120,6 @@ The motivation for this is to support an Ethereum gateway. In order to send toke
 By implementing this address scheme, no gateway will ever be in the position where the ownership of the tokens might have changed. By ensuring the same owner is on both sides of the transaction, it is legally a much safer transaction. 
 
 
-==Backwards compatibility==
+==Backwards Compatibility==
 
-This address type will likely be adopted by the Factom protocol in the future, so all wallets should plan to accept it. Until that is done, there will be an incompatibility between rcd-e and factomd. RCD-e addresses will be constrained to Pegnet at this time.
+This address type will likely be adopted by the Factom protocol in the future, so all wallets should plan to accept it. Until that is done, there will be an incompatibility between RCD-e and factomd. RCD-e addresses will be constrained to PegNet at this time.
