@@ -1,0 +1,47 @@
+<pre>
+  PIP: 9
+  Title: Additional Currencies Update 02
+  Layer: Consensus (hard fork)
+  Author: David Johnston <david@yeomans.capital>
+          Steven Masley <steven@factom.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0009
+  Status: Draft
+  Type: Standards Track
+  Created: 2020-01-16
+  License: BSD-2-Clause
+</pre>
+
+==Abstract==
+
+Add the following assets to be tracked on pegnetd:
+<pre>
+Currencies
+  pAUD
+  pNZD
+  pSEK
+  pNOK
+  pRUB
+  pZAR
+  pTRY
+
+Crypto
+  pEOS
+  pLINK
+  pATOM
+  pBAT
+  pXTZ
+</pre>
+
+Also add the tracking of pUSD
+
+===Implementation===
+
+Implementation found:
+* Pegnetd https://github.com/pegnet/pegnetd/pull/113
+* Pegnet https://github.com/pegnet/pegnet/pull/346
+
+==Motivation==
+
+These currencies adhere to [https://github.com/pegnet/pips/blob/master/pip-0005.mediawiki pip-005] and are already covered by the existing data sources.
+pUSD needs to be tracked to implement pip-008
