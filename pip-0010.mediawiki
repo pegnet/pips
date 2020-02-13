@@ -1,47 +1,47 @@
 <pre>
-  PIP: 9
-  Title: Additional Currencies Update 02
+  PIP: 10
+  Title: Add asset averaging to both prevent liquidity attacks as well as open up conversions
   Layer: Consensus (hard fork)
-  Author: David Johnston <david@yeomans.capital>
-          Steven Masley <steven@factom.com>
+  Author: Paul Snow <paul@factom.com>
   Comments-Summary: No comments yet.
-  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0009
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0010
   Status: Draft
   Type: Standards Track
-  Created: 2020-01-16
+  Created: 2020-02-12
   License: BSD-2-Clause
 </pre>
 
 ==Abstract==
+The problem with liquidity attacks is that some assets can be driven up and down in price on the market pretty easily. What an attcker can do is drive a reference price down, and then convert to that pegged asset.  Then push the price of reference price up, and then convert out of that pegged asset.  This can be repeated over and over, and thus pump up the token balances of the attacker.
 
-Add the following assets to be tracked on pegnetd:
-<pre>
-Currencies
-  pAUD
-  pNZD
-  pSEK
-  pNOK
-  pRUB
-  pZAR
-  pTRY
+This pip would aproximate the spread by tracking the average price over time vs the market price. Converting into an pAsset would be done at the higher of the spread, and converting out of a pAsset would be done at the lower of the spread.
 
-Crypto
-  pEOS
-  pLINK
-  pATOM
-  pBAT
-  pXTZ
-</pre>
+Liquidity attacks allow less liquid assets to be manipulated in the market (because of lower liquidity) but converted in the PegNet for profit (because the liquidity is absolute).
 
-Also add the tracking of pUSD
+Adding a spread calculation to the PegNet allows users and traders to take advantage of the spread to make money countering a true liquidity attack.  The impact of the PegNet is to support the price of assets in the PegNet. 
+
+If the price of the pAsset in the real market is being driven down, then users in the PegNet may certainly wish to buy into the sell off in the real market, since 1) Dumps generally leave the market thin, and 2) if they drive the price back up to its running average, all the pAssets aquired at lower prices bringing the token price back up can then be converted in the PegNet to pUSD at the original value.
+
+Persistent market moves in reference prices for pAssets are still useful for users of the PegNet because the spread goes to zero as prices stabalize.
 
 ===Implementation===
 
-Implementation found:
-* Pegnetd https://github.com/pegnet/pegnetd/pull/113
-* Pegnet https://github.com/pegnet/pegnet/pull/346
+With each block, a decaying average price is calculated for each pAsset by taking the previous decaying price (PDP) and computing a weighted average price with the current market price (CMP).  This becomes the new PDP. A weight between 5 and 10 would be my suggestion.  Using 6, the calculation for the next PDP in a new block would be:
+
+PDP' = (6*PDP + CMP) / 7
+
+Converting out of a pAsset would use the MIN (PDP', CMP)
+
+Converting into a pAsset would use the MAX(PDP', CMP)
+
+The limits for conversion into PEG would be lifted.
 
 ==Motivation==
+In order for the PegNet to work as designed, we need to be able to convert into PEG and out of PEG without the restrictions we currently face.  Furthermore, the restrictions on pFCT limit the utility of the PegNet from be leveraged by users of the Factom Protocol.  While this PIP does not suggest adding back the conversions of pAssets to pFCT, it does allow conversions into PEG.  This opens up all the capital currently trapped in PEG to be leveraged to add liquidity on exchanges for PEG, and pAssets.
 
-These currencies adhere to [https://github.com/pegnet/pips/blob/master/pip-0005.mediawiki pip-005] and are already covered by the existing data sources.
-pUSD needs to be tracked to implement pip-008
+The impact of PIP-10:
+* increases the time required for the attacker to eithr hold a reference token price down or push a price down to perform the attack.
+* creates a counter incentive that allowing other PEG holders to trade against the interests of the attacker and profit by buying up low cost reference assets (or PEG, or pFCT) and converting the pAssets (or PEG and pFCT) at the previous higher value in the PegNet
+
+The cost to convert into or out of a rapidly changing value pAsset goes up by calculating a spread based on price changes.  This effectively insulates the PegNet from more volitile assets.
+
