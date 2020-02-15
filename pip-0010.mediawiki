@@ -16,11 +16,9 @@ The problem with liquidity attacks is that some assets can be driven up and down
 
 This pip would aproximate the spread by tracking the average price over time vs the market price. Converting into an pAsset would be done at the higher of the spread, and converting out of a pAsset would be done at the lower of the spread.
 
-Liquidity attacks allow less liquid assets to be manipulated in the market (because of lower liquidity) but converted in the PegNet for profit (because the liquidity is absolute).
+Adding a spread calculation to the PegNet allows users and traders to take advantage of the spread between the original reference price and a lower, market manipulated price by countering the liquidity attack.  The impact of the PegNet on a low liquidity reference asset in the real market is to support the reference asset price with the liquidity in the PegNet. 
 
-Adding a spread calculation to the PegNet allows users and traders to take advantage of the spread to make money countering a true liquidity attack.  The impact of the PegNet is to support the price of assets in the PegNet. 
-
-If the price of the pAsset in the real market is being driven down, then users in the PegNet may certainly wish to buy into the sell off in the real market, since 1) Dumps generally leave the market thin, and 2) if they drive the price back up to its running average, all the pAssets aquired at lower prices bringing the token price back up can then be converted in the PegNet to pUSD at the original value.
+If the price of the pAsset in the real market is being driven down, then users in the PegNet may certainly wish to buy into the sell off in the real market, since 1) Dumps generally leave the market thin, and 2) if they drive the price higher than the current reference asset price, all the pAssets for the reference asset converted at the original value or higher.
 
 Persistent market moves in reference prices for pAssets are still useful for users of the PegNet because the spread goes to zero as prices stabalize.
 
@@ -42,6 +40,10 @@ In order for the PegNet to work as designed, we need to be able to convert into 
 The impact of PIP-10:
 * increases the time required for the attacker to eithr hold a reference token price down or push a price down to perform the attack.
 * creates a counter incentive that allowing other PEG holders to trade against the interests of the attacker and profit by buying up low cost reference assets (or PEG, or pFCT) and converting the pAssets (or PEG and pFCT) at the previous higher value in the PegNet
+* Allows conversion out of PEG if the PEG price is falling, preserving the capitalization of the PegNet as a whole
+* Allows conversion into PEG to provide OTC and Arbitrage functions
+  * If a pAsset holder wishes to liquidate a good amount of a pAsset, the pAssets can be placed on the market at a discount. Selling PEG to buy the pAsset, and converting that pAsset to PEG provides a profit to the liquidity provider.
+  * If the selling of PEG does drive the price of PEG down sharply, buying into the drop of PEG also privides a profit to the buyer (as they will get PEG for a discount compared to the PEG Average, but will drive up the price to the PEG average allowing conversion to other pAssets at a profit).
 
-The cost to convert into or out of a rapidly changing value pAsset goes up by calculating a spread based on price changes.  This effectively insulates the PegNet from more volitile assets.
+The cost to convert into or out of a rapidly changing value pAsset goes up by calculating a spread based on price changes.  This effectively insulates the PegNet from more volitile assets. More importantly, this allows the movement of liquidity in the PegNet to flow through Exchanges, increasing the liquidity of pAssets.
 
