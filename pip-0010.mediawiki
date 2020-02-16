@@ -12,6 +12,12 @@
 </pre>
 
 ==Abstract==
+In the whitepaper for PegNet, the ability to convert into and out of PEG is explained as necessary to create a means of allowing users of PegNet to provide liquidity as needed at a profit.  So if demand for pUSD is high, users of PegNet can convert and sell pUSD at rates higher than an dollar, and buy PEG.  PEG can be converted to pUSD and provide more pUSD to meet the demand.
+
+Likewise, if demand to sell pUSD is high, users of the PegNet can sell PEG and buy pUSD, then convert the cheap pUSD to PEG and repeat until the demand to sell pUSD is met.
+
+The problem with the latter case is that an attacker can execute a liquidity attack.
+
 The problem with liquidity attacks is that some assets can be driven up and down in price on the market pretty easily. What an attcker can do is drive a reference price down, and then convert to that pegged asset.  Then push the price of reference price up, and then convert out of that pegged asset.  This can be repeated over and over, and thus pump up the token balances of the attacker.
 
 This pip would aproximate the spread by tracking the average price over time vs the market price. Converting into an pAsset would be done at the higher of the spread, and converting out of a pAsset would be done at the lower of the spread.
@@ -42,8 +48,8 @@ The impact of PIP-10:
 * creates a counter incentive that allowing other PEG holders to trade against the interests of the attacker and profit by buying up low cost reference assets (or PEG, or pFCT) and converting the pAssets (or PEG and pFCT) at the previous higher value in the PegNet
 * Allows conversion out of PEG if the PEG price is falling, preserving the capitalization of the PegNet as a whole
 * Allows conversion into PEG to provide OTC and Arbitrage functions
-  * If a pAsset holder wishes to liquidate a good amount of a pAsset, the pAssets can be placed on the market at a discount. Selling PEG to buy the pAsset, and converting that pAsset to PEG provides a profit to the liquidity provider.
-  * If the selling of PEG does drive the price of PEG down sharply, buying into the drop of PEG also privides a profit to the buyer (as they will get PEG for a discount compared to the PEG Average, but will drive up the price to the PEG average allowing conversion to other pAssets at a profit).
+ * If a pAsset holder wishes to liquidate a good amount of a pAsset, the pAssets can be placed on the market at a discount. Selling PEG to buy the pAsset, and converting that pAsset to PEG provides a profit to the liquidity provider.
+ * If the selling of PEG does drive the price of PEG down sharply, buying into the drop of PEG also privides a profit to the buyer (as they will get PEG for a discount compared to the PEG Average, but will drive up the price to the PEG average allowing conversion to other pAssets at a profit).
 
 The cost to convert into or out of a rapidly changing value pAsset goes up by calculating a spread based on price changes.  This effectively insulates the PegNet from more volitile assets. More importantly, this allows the movement of liquidity in the PegNet to flow through Exchanges, increasing the liquidity of pAssets.
 
