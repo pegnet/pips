@@ -1,0 +1,46 @@
+
+<pre>
+  PIP: 11
+  Title: pAsset Staking
+  Layer: Consensus (hard fork)
+  Author: David Johnson <na@gmail.com>
+          Steven Masley <steven@factom.com>
+  Comments-Summary: No comments yet.
+  Comments-URI: https://github.com/pegnet/pips/wiki/Comments:PIP-0011
+  Status: Draft
+  Type: Standards Track
+  Created: 2020-04-12
+  License: BSD-2-Clause
+</pre>
+
+==Abstract==
+
+Inspiration and explaination of the benefits of pAsset staking can be found in this medium post: https://medium.com/pegnet/staking-passets-as-an-arbitrage-function-on-pegnet-41d416f39e8c. 
+
+pAsset staking redirects the current 5,000 PEG per block created by conversions to instead go towards pAsset holders. This reward is automatic and requires no action by the wallet holders. The implementation would be treated as if all wallets are making a conversion request. The frequency of payouts would be on a 144 block frquency to reduce the cost of doing the payout. 
+
+==Specification==
+
+The implementation of this payout requires an expensive calculation and database calls. If the payouts require no minimum pAsset holding and no action by the wallet holders, it would add roughly 2,000 transactions per payout period. One to each address. This number would grow as more addresses come into existance. To compare, mining adds 3600 coinbase transactions per day. The mining number exclude miners that submitted oprs that did not win.
+
+The simpliest method of implementation is to record balance snapshots every 144 blocks. Each snapshot will be compared the previous snapshot recorded. The minimum balance of the 2 snapshots would be the amount considered "staked". This is to ensure funds sit for a minimum of 1 full period to be eligible. If a user has 100 pUSD, and sends it all to an exchange, the first snapshot would read 100 pUSD, while the second is 0 pUSD. The user would have 0 pUSD eligible and yield no staking rewards. As would the exchange, as their snapshots would read 0 pUSD and 100 pUSD respectively. This does not strictly enforce a user needs to have the funds stay locked, as they can send 100 pUSD out, and receive 100 pUSD in the same period, and be rewarded for the full 100 pUSD. The total eligble staked pAssets will always be <= the total amount of pAssets in the system at the pay period.
+
+The implementation from an api point of view. To ensure wallets/explorers do not need to update to reflect the new transaction type, each payout would be apart of a batch transaction for all the staked PEG payouts for the block. This payout is implied, and therefore not recorded on the blockchain, allowing it to be larger than the 10K limit. All individual transactions would be a conversion with no input pAsset just as a mining coinbase tx. The idea behind batching them is to easily assoicate all the inputs. The txid of the batch needs to be determined.
+
+This means 720,000 PEG will be distributed each day. At the current (April 12, 2020) pAsset market cap estimate of $2,400,170 in market cap, each $1 in pAssets yields ~0.3 in PEG per day, or 109 PEG per year. At current pricing, that would be $0.12 or 12% in staked rewards per year.
+
+Block Height Activation: ______ (Estimated to be __________)
+
+==Motivation==
+
+The motivation is explained the medium post. This is it incentivise pAsset holding. The motivation behind the simple implementation is to keep the complexity low, and ensuring the integration for wallets/users is easy.
+
+==Rationale==
+
+The proposed mechanism of staking is the simpliest method that requires the least amount of work for all parties involved. A staking system that requires user actions greatly increase the complexity of internal and external systems. This proposed method has no additional blockchain data types, no additional input required from wallets, and no additonal api endpoints required. It can be integrated alongside the current block syncing routine, which is already rather complex. An additional api endpoint for snapshots can be added, but is not required for a user.
+
+This simple approach reduces QA and Dev resources to deliver a solid new update.
+
+==Reference implementation== 
+
+Yet to be implemented, specifics should still be discussed.
