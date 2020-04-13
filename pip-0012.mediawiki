@@ -1,6 +1,6 @@
 
 <pre>
-  PIP: 11
+  PIP: 12
   Title: pAsset Staking
   Layer: Consensus (hard fork)
   Author: David Johnson <na@gmail.com>
